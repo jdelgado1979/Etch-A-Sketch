@@ -86,22 +86,20 @@ h1 {
 }
 
 
-.subCanvas {
-   margin-top: 120px;
-   position: absolute;
-   display: grid;
-   grid-template-columns: repeat(4, 1fr);
-   grid-template-rows: repeat(4, 1fr);   
-   z-index: 2;
-   height: 600px;
-   width: 600px;
-}
+#subCanvas {
+  display: grid;
+  margin-top: 120px;
+  position: absolute;
+  z-index: 2;
+  height: 600px;
+  width: 600px;
+ }
 
 .square {
-    z-index: 3;
-    border: 1px solid white;
-    height: auto;
-    width: auto;
+  z-index: 3;
+  height: auto;
+  width: auto;
+  border: 1px solid white;
 }
 
 
@@ -139,6 +137,13 @@ h1 {
     height: 25px; 
     background: #04AA6D; 
     cursor: pointer; 
+  }
+
+  .slider::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #04AA6D; /* Green background */
+    cursor: pointer; /* Cursor on hover */
   }
 
 
