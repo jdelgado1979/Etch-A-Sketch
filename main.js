@@ -3,7 +3,7 @@
 
 var slider = document.getElementById("myRange");
 var canvas2 = document.getElementById('subCanvas');
-
+var showCase = document.getElementById('showCase');
 
 
 // Update the current slider value (each time you drag the slider handle)
@@ -38,5 +38,6 @@ slider.oninput = function(e) {
 
    canvas2.style.setProperty("grid-template-columns", `repeat(${num}, 1fr)`);
    canvas2.style.setProperty("grid-template-rows", `repeat(${num}, 1fr)`);
- 
+
+   showCase.innerText = `Grid is: ${num} X ${num}`
 }
