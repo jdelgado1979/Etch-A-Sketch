@@ -11,25 +11,34 @@
 <body>
     
     <div class="btonContainer">
-        <button class="btns" id="btn1">Change background</button>
-        <button class="btns" id="btn2">Change my border</button>
+        <button class="btns" id="btn1">
+            Change background 
+            <input type="color" id="input1">
+        </button>
+        <button class="btns" id="btn2">
+            Change my border
+            <input type="color" id="input2">
+        </button>
         <button class="btns" id="btn3">Blacken me</button>
         <button class="btns" id="btn4">Whiten me</button>
-        <button class="btns" id="btn5">Color me</button>
+        <button class="btns" id="btn5">
+            Color me
+            <input type="color" id="input3">
+        </button>
         <button class="btns" id="btn6">Lighten me up</button>
         <button class="btns" id="btn7">Darken me up</button>
         <button class="btns" id="btn8">Clear me</button>
     </div>
 
     <div class="mainContainer">
-     <h1>Etch a Sketch</h1>
-     <div class="slidecontainer">
+      <h1>Etch a Sketch</h1>
+      <div class="slidecontainer">
         <input type="range" min="1" max="100" value="1" class="slider" id="myRange">
       </div>
-     <div class="mainCanvas"></div>
-     <div id="subCanvas" ></div>
+      <div class="mainCanvas"></div>
+      <div id="subCanvas"></div>
     </div>
     <div id="showCase" ></div>
-    
+  
 </body>
 </html>

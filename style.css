@@ -68,6 +68,17 @@ h1 {
     transform: translateY(4px);
   }
 
+input {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  opacity: 0;
+}
+
+#btn1, #btn2, #btn5 {
+  cursor: auto;
+}
+
 .mainContainer {
     display: flex;
     flex-direction: column;
@@ -95,7 +106,7 @@ h1 {
   width: 600px;
  }
 
-.square {
+#square {
   z-index: 3;
   height: auto;
   width: auto;
