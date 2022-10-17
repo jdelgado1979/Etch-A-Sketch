@@ -1,12 +1,14 @@
 
+/*     
+  // this.onclick1 = this.onclick1.bind(this);
+  // square.addEventListener('click', this.onclick1);
 
+ */
 
 var slider = document.getElementById("myRange");
 var mainCanvas = document.querySelector('.mainCanvas');
 var canvas2 = document.getElementById('subCanvas');
 var showCase = document.getElementById('showCase');
-var bckgrdButton = document.getElementById('btn1');
-var borderButton = document.getElementById('btn2');
 var blackButton = document.getElementById('btn3');
 var whiteButton = document.getElementById('btn4');
 var colorButton = document.getElementById('btn5');
@@ -20,11 +22,14 @@ var input3 = document.getElementById('input3');
 
 
 // 1st button functionality (change background color of the main canvas)
-bckgrdButton.addEventListener('click', changeBckgrd);
+input1.addEventListener('click', changeBckgrd);
 
 function changeBckgrd(e) {
  var color = e.target.value;
- mainCanvas.style.setProperty("background-color", color);
+ square = document.querySelectorAll('#square');
+ [...square].forEach(function(ele) {
+   ele.style.setProperty("background-color", color);
+ });
   
 }
 
@@ -33,7 +38,6 @@ input2.addEventListener('click', changeBorder);
 
 function changeBorder(e) {
   var color = e.target.value;
-  let initialCount = canvas2.childElementCount;
   let newBorder = `1px solid ${color}`;
   square = document.querySelectorAll('#square');
   [...square].forEach(function(ele) {
@@ -42,16 +46,69 @@ function changeBorder(e) {
  }
 
  // 3rd button functionality (set to black the background of each square )
+ 
  blackButton.addEventListener('click', blackenSquare);
 
-function blackenSquare(e) {
-  
-  square = document.getElementById('square');
-  square.addEventListener('mousedown', paintBlack);
+function blackenSquare() {
 
-  function paintBlack(e) {
-  square.style.setProperty("background-color", 'black');
-  }
+ const square = document.querySelectorAll("#square");
+
+ for (let i = 0; i < square.length; i++) {
+  square[i].addEventListener("click", function() {
+    square[i].style.backgroundColor = 'black';
+     });
+ }
+
+}
+
+ // 4th button functionality (set to white the background of each square )
+ 
+ whiteButton.addEventListener('click', whitenSquare);
+
+function whitenSquare() {
+
+ const square = document.querySelectorAll("#square");
+
+ for (let i = 0; i < square.length; i++) {
+  square[i].addEventListener("click", function() {
+    square[i].style.backgroundColor = 'white';
+     });
+ }
+
+}
+
+// 5th button functionality (set to any color the background of each square )
+ 
+input3.addEventListener('click', colorMe);
+
+function colorMe(e) {
+
+  var color = e.target.value;
+ const square = document.querySelectorAll("#square");
+
+ for (let i = 0; i < square.length; i++) {
+  square[i].addEventListener("click", function() {
+    square[i].style.backgroundColor = color;
+     });
+ }
+
+}
+
+
+
+
+ // 8th button (this sets everything back to the original state)
+clearButton.addEventListener('click', clear);
+
+function clear(e) {
+
+  let originalBorder = `1px solid white`;
+  square = document.querySelectorAll('#square');
+  [...square].forEach(function(ele) {
+    ele.style.setProperty("border", originalBorder);
+    ele.style.setProperty("background-color", 'black');
+  });
+  return;
  }
 
 // slider functionality
