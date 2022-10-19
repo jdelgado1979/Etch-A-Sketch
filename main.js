@@ -2,7 +2,7 @@
 /*     
   // this.onclick1 = this.onclick1.bind(this);
   // square.addEventListener('click', this.onclick1);
-
+square[i].style.backgroundColor = function () { 
  */
 
 var slider = document.getElementById("myRange");
@@ -93,6 +93,64 @@ function colorMe(e) {
  }
 
 }
+
+
+// 6th button functionality (set the brightness to lighten the background of each square )
+ 
+lightenButton.addEventListener('click', lightenMe);
+
+
+let bright = 1;
+let dark = 1;
+
+function lightenMe() {
+  
+  for (let i = 0; i < square.length; i++) {
+    
+    square[i].addEventListener("click", function() {
+      
+        if (bright < 2) {   
+          bright = bright + 0.2;
+          bright = (bright * 100) / 100; 
+          console.log(bright);
+          square[i].style.setProperty("filter", `brightness(${bright})`);
+          } else if (bright >= 2){
+            bright = 1;
+            square[i].style.setProperty("filter", `brightness(${bright})`);
+          }
+        
+     });
+   }
+ 
+ };
+
+
+
+// 7th button functionality (set the brightness to darken the background of each square )
+ 
+blackenButton.addEventListener('click', darkenMe);
+
+
+function darkenMe() {
+  
+  for (let i = 0; i < square.length; i++) {
+    
+    square[i].addEventListener("click", function() {
+      
+        if (dark > 0) {   
+          dark = dark - 0.2;
+          dark = (dark * 100) / 100; 
+          square[i].style.setProperty("filter", `brightness(${dark})`);
+          console.log(dark);
+          } else if (dark <= 0) {
+            dark = 1;
+            square[i].style.setProperty("filter", `brightness(${dark})`);
+          }
+        
+     });
+   }
+ 
+ };
 
 
 
