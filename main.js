@@ -1,162 +1,214 @@
 
-/*     
-  // this.onclick1 = this.onclick1.bind(this);
-  // square.addEventListener('click', this.onclick1);
-square[i].style.backgroundColor = function () { 
- */
-
-var slider = document.getElementById("myRange");
-var mainCanvas = document.querySelector('.mainCanvas');
-var canvas2 = document.getElementById('subCanvas');
-var showCase = document.getElementById('showCase');
-var blackButton = document.getElementById('btn3');
-var whiteButton = document.getElementById('btn4');
-var colorButton = document.getElementById('btn5');
-var lightenButton = document.getElementById('btn6');
-var blackenButton = document.getElementById('btn7');
-var clearButton = document.getElementById('btn8');
-var input1 = document.getElementById('input1');
-var input2 = document.getElementById('input2');
-var input3 = document.getElementById('input3');
+const slider = document.getElementById("myRange");
+const mainCanvas = document.querySelector('.mainCanvas');
+const canvas2 = document.getElementById('subCanvas');
+const showCase = document.getElementById('showCase');
+const bckgroundButton = document.getElementById('btn1');
+const changeBorderButton = document.getElementById('btn2');
+const blackButton = document.getElementById('btn3');
+const whiteButton = document.getElementById('btn4');
+const colorButton = document.getElementById('btn5');
+const lightenButton = document.getElementById('btn6');
+const blackenButton = document.getElementById('btn7');
+const clearButton = document.getElementById('btn8');
+const input1 = document.getElementById('input1');
+const input2 = document.getElementById('input2');
+const input3 = document.getElementById('input3');
+const wrapper = document.querySelector('.btonContainer');
+let square = document.querySelectorAll("#square");
 
 
+//Function to activate one button at a time
+
+let prevButton = null;
+
+wrapper.addEventListener('click', (e) => {
+ 
+  e.target.classList.add('active');
+   if (prevButton !== null) {
+    prevButton.classList.remove('active');
+   }
+  prevButton = e.target;
+   
+});
+
+//Function MENU to control ALL buttons one at a time
+
+/*wrapper.addEventListener('click', (e) => {
+
+var test = e.target.classList.contains('active');
+console.log(test);
+var buttonID = e.target.id;
+console.log(buttonID);
+
+
+});*/
 
 // 1st button functionality (change background color of the main canvas)
-input1.addEventListener('click', changeBckgrd);
 
-function changeBckgrd(e) {
- var color = e.target.value;
- square = document.querySelectorAll('#square');
+input1.addEventListener('click', activateInput1);
+input1.addEventListener('input', changeBckgrd);
+input1.addEventListener('change', deactivateInput1);
+
+
+
+ function activateInput1 (e) {
+  bckgroundButton.classList.add('active');
+ }
+
+ function changeBckgrd(e) {
+  var color = e.target.value;
+  square = document.querySelectorAll("#square");
  [...square].forEach(function(ele) {
    ele.style.setProperty("background-color", color);
- });
-  
-}
+  });
+ }
+
+ function deactivateInput1 (e) {
+  bckgroundButton.classList.remove('active');
+ }
 
 // 2nd button functionality (change border line color)
-input2.addEventListener('click', changeBorder);
+
+input2.addEventListener('click', activateInput2);
+input2.addEventListener('input', changeBorder);
+input2.addEventListener('change', deactivateInput2);
+
+function activateInput2 (e) {
+  changeBorderButton.classList.add('active');
+ }
 
 function changeBorder(e) {
   var color = e.target.value;
   let newBorder = `1px solid ${color}`;
-  square = document.querySelectorAll('#square');
+  
   [...square].forEach(function(ele) {
     ele.style.setProperty("border", newBorder);
   });
  }
 
+ function deactivateInput2 (e) {
+  changeBorderButton.classList.remove('active');
+ }
+
  // 3rd button functionality (set to black the background of each square )
- 
+
  blackButton.addEventListener('click', blackenSquare);
 
-function blackenSquare() {
-
- const square = document.querySelectorAll("#square");
-
- for (let i = 0; i < square.length; i++) {
-  square[i].addEventListener("click", function() {
-    square[i].style.backgroundColor = 'black';
-     });
- }
-
-}
+ function blackenSquare() {
+  
+   square = document.querySelectorAll("#square");
+  
+    for (let i = 0; i < square.length; i++) {
+      square[i].addEventListener("click", function() {
+        square[i].style.removeProperty("filter");
+        square[i].style.backgroundColor = 'black';
+         });
+      }
+    } 
+  
 
  // 4th button functionality (set to white the background of each square )
- 
+
  whiteButton.addEventListener('click', whitenSquare);
-
+ 
 function whitenSquare() {
+  square = document.querySelectorAll("#square");
+  
+    for (let i = 0; i < square.length; i++) {
+      square[i].addEventListener("click", function() {
+        square[i].style.removeProperty("filter");
+        square[i].style.backgroundColor = 'white';
+         });
+      }
+    }
 
- const square = document.querySelectorAll("#square");
-
- for (let i = 0; i < square.length; i++) {
-  square[i].addEventListener("click", function() {
-    square[i].style.backgroundColor = 'white';
-     });
- }
-
-}
 
 // 5th button functionality (set to any color the background of each square )
- 
-input3.addEventListener('click', colorMe);
 
-function colorMe(e) {
+input3.addEventListener('click', activateInput3);
+input3.addEventListener('input', colorMe);
+input3.addEventListener('change', deactivateInput3);
 
-  var color = e.target.value;
- const square = document.querySelectorAll("#square");
-
- for (let i = 0; i < square.length; i++) {
-  square[i].addEventListener("click", function() {
-    square[i].style.backgroundColor = color;
-     });
+function activateInput3 (e) {
+  colorButton.classList.add('active');
  }
 
+function colorMe(e) {
+ 
+ var color = e.target.value;
+ square = document.querySelectorAll("#square");
+ for (let i = 0; i < square.length; i++) {
+  square[i].addEventListener("click", function() {
+    square[i].style.removeProperty("filter");
+    square[i].style.backgroundColor = color;
+     });
+  }
 }
 
+function deactivateInput3 (e) {
+  colorButton.classList.remove('active');
+ }
 
 // 6th button functionality (set the brightness to lighten the background of each square )
- 
+
 lightenButton.addEventListener('click', lightenMe);
 
-
 let bright = 1;
-let dark = 1;
 
 function lightenMe() {
-  
+  square = document.querySelectorAll("#square");
   for (let i = 0; i < square.length; i++) {
+    square[i].style.removeProperty("filter");
+  }  
     
-    square[i].addEventListener("click", function() {
-      
-        if (bright < 2) {   
+   for (let i = 0; i < square.length; i++) {
+     square[i].addEventListener("click", function() {
+     
+          if (bright < 2) {   
           bright = bright + 0.2;
           bright = (bright * 100) / 100; 
-          console.log(bright);
           square[i].style.setProperty("filter", `brightness(${bright})`);
-          } else if (bright >= 2){
+          } else if (bright == 2){
             bright = 1;
-            square[i].style.setProperty("filter", `brightness(${bright})`);
+           
           }
-        
-     });
-   }
- 
- };
-
-
+       });
+     }
+     console.log(bright);
+    };
 
 // 7th button functionality (set the brightness to darken the background of each square )
- 
+
 blackenButton.addEventListener('click', darkenMe);
 
-
+let dark = 1;
+ 
 function darkenMe() {
-  
+  square = document.querySelectorAll("#square");
   for (let i = 0; i < square.length; i++) {
-    
-    square[i].addEventListener("click", function() {
-      
+    square[i].style.removeProperty("filter");
+  } 
+  for (let i = 0; i < square.length; i++) {
+   square[i].addEventListener("click", function() {
         if (dark > 0) {   
           dark = dark - 0.2;
           dark = (dark * 100) / 100; 
           square[i].style.setProperty("filter", `brightness(${dark})`);
-          console.log(dark);
-          } else if (dark <= 0) {
+          } else if (dark == 0) {
             dark = 1;
-            square[i].style.setProperty("filter", `brightness(${dark})`);
+            
           }
-        
      });
    }
- 
+   console.log(dark);
  };
 
 
-
-
  // 8th button (this sets everything back to the original state)
-clearButton.addEventListener('click', clear);
+
+ clearButton.addEventListener('click', clear);
+ 
 
 function clear(e) {
 
@@ -164,9 +216,10 @@ function clear(e) {
   square = document.querySelectorAll('#square');
   [...square].forEach(function(ele) {
     ele.style.setProperty("border", originalBorder);
-    ele.style.setProperty("background-color", 'black');
+    ele.style.setProperty("background-color", 'gray');
+    ele.style.removeProperty("filter");
   });
-  return;
+  
  }
 
 // slider functionality
