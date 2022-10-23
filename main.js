@@ -10,7 +10,7 @@ const whiteButton = document.getElementById('btn4');
 const colorButton = document.getElementById('btn5');
 const lightenButton = document.getElementById('btn6');
 const blackenButton = document.getElementById('btn7');
-const clearButton = document.getElementById('btn8');
+let clearButton = document.getElementById('btn8');
 const input1 = document.getElementById('input1');
 const input2 = document.getElementById('input2');
 const input3 = document.getElementById('input3');
@@ -23,26 +23,17 @@ let square = document.querySelectorAll("#square");
 let prevButton = null;
 
 wrapper.addEventListener('click', (e) => {
+
+  if(e.target !== wrapper) {
+    e.target.classList.add('active');
+    if (prevButton !== null) {
+     prevButton.classList.remove('active');
+    }
+   prevButton = e.target;
+  }
  
-  e.target.classList.add('active');
-   if (prevButton !== null) {
-    prevButton.classList.remove('active');
-   }
-  prevButton = e.target;
-   
 });
 
-//Function MENU to control ALL buttons one at a time
-
-/*wrapper.addEventListener('click', (e) => {
-
-var test = e.target.classList.contains('active');
-console.log(test);
-var buttonID = e.target.id;
-console.log(buttonID);
-
-
-});*/
 
 // 1st button functionality (change background color of the main canvas)
 
@@ -156,12 +147,11 @@ lightenButton.addEventListener('click', lightenMe);
 
 let bright = 1;
 
-function lightenMe() {
-  square = document.querySelectorAll("#square");
-  for (let i = 0; i < square.length; i++) {
-    square[i].style.removeProperty("filter");
-  }  
-    
+function lightenMe(e) {
+
+   square = document.querySelectorAll("#square"); 
+   let test = e.target.classList.contains('active')
+   if (test)  {
    for (let i = 0; i < square.length; i++) {
      square[i].addEventListener("click", function() {
      
@@ -171,11 +161,16 @@ function lightenMe() {
           square[i].style.setProperty("filter", `brightness(${bright})`);
           } else if (bright == 2){
             bright = 1;
-           
+           // square[i].style.setProperty("filter", `brightness(${bright})`);
           }
-       });
+        });
      }
-     console.log(bright);
+    }
+     if (!test)  {
+      for (let i = 0; i < square.length; i++) {
+        square[i].outerHTML = square[i].outerHTML;// This will remove all event listeners
+       }
+     }
     };
 
 // 7th button functionality (set the brightness to darken the background of each square )
@@ -184,33 +179,39 @@ blackenButton.addEventListener('click', darkenMe);
 
 let dark = 1;
  
-function darkenMe() {
-  square = document.querySelectorAll("#square");
+function darkenMe(e) {
+  
+ square = document.querySelectorAll("#square"); 
+ let test = e.target.classList.contains('active');
+ if (test)  {
   for (let i = 0; i < square.length; i++) {
-    square[i].style.removeProperty("filter");
-  } 
-  for (let i = 0; i < square.length; i++) {
-   square[i].addEventListener("click", function() {
-        if (dark > 0) {   
-          dark = dark - 0.2;
-          dark = (dark * 100) / 100; 
-          square[i].style.setProperty("filter", `brightness(${dark})`);
-          } else if (dark == 0) {
-            dark = 1;
-            
-          }
-     });
+    square[i].addEventListener("click", function() {
+         if (dark > 0) {   
+           dark = dark - 0.2;
+           dark = (dark * 100) / 100; 
+           square[i].style.setProperty("filter", `brightness(${dark})`);
+           } else if (dark <= 0) {
+             dark = 1;
+            // square[i].style.setProperty("filter", `brightness(${dark})`);
+            }
+           
+      });
+    }
+  }
+    if (!test) { 
+    for (let i = 0; i < square.length; i++) {
+      square[i].outerHTML = square[i].outerHTML;// This will remove all event listeners
+     }
    }
-   console.log(dark);
- };
+  };
 
 
  // 8th button (this sets everything back to the original state)
 
  clearButton.addEventListener('click', clear);
  
-
-function clear(e) {
+ 
+function clear() {
 
   let originalBorder = `1px solid white`;
   square = document.querySelectorAll('#square');
@@ -222,6 +223,9 @@ function clear(e) {
   
  }
 
+ 
+ 
+ 
 // slider functionality
 
 slider.oninput = function(e) {
