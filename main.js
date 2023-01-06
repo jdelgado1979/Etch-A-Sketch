@@ -51,6 +51,7 @@ input1.addEventListener('change', deactivateInput1);
   var color = e.target.value;
   square = document.querySelectorAll("#square");
  [...square].forEach(function(ele) {
+  ele.style.removeProperty("filter");
    ele.style.setProperty("background-color", color);
   });
  }
@@ -145,64 +146,72 @@ function deactivateInput3 (e) {
 
 lightenButton.addEventListener('click', lightenMe);
 
-let bright = 1;
+
 
 function lightenMe(e) {
-
-   square = document.querySelectorAll("#square"); 
-   let test = e.target.classList.contains('active')
-   if (test)  {
+  
+ square = document.querySelectorAll("#square"); 
+    
    for (let i = 0; i < square.length; i++) {
-     square[i].addEventListener("click", function() {
-     
-          if (bright < 2) {   
-          bright = bright + 0.2;
-          bright = (bright * 100) / 100; 
-          square[i].style.setProperty("filter", `brightness(${bright})`);
-          } else if (bright == 2){
-            bright = 1;
-           // square[i].style.setProperty("filter", `brightness(${bright})`);
-          }
-        });
-     }
+    
+    if(square[i].className = 'dark'){
+      square[i].className = 'bright';
     }
-     if (!test)  {
-      for (let i = 0; i < square.length; i++) {
-        square[i].outerHTML = square[i].outerHTML;// This will remove all event listeners
+    console.log(square[i].className);
+    if(square[i].className === 'bright' && square[i].className !== 'dark'){
+      let bright = 1;
+      square[i].addEventListener("click", function() {
+      square[i].style.removeProperty("filter");
+      square[i].style.setProperty("filter", `brightness(${bright})`);
+      if (bright < 2 && bright >= 1) {   
+       bright = bright + 0.2;
+       bright = (bright * 100) / 100; 
+       console.log(bright);
+       console.log(square[i].className);
+      } else if (bright >= 2) {
+       bright = 1;
        }
-     }
-    };
+      });
+    }
+  }
+  return;
+ }
+     
+     
 
 // 7th button functionality (set the brightness to darken the background of each square )
 
 blackenButton.addEventListener('click', darkenMe);
 
-let dark = 1;
+
  
 function darkenMe(e) {
-  
- square = document.querySelectorAll("#square"); 
- let test = e.target.classList.contains('active');
- if (test)  {
-  for (let i = 0; i < square.length; i++) {
+ 
+square = document.querySelectorAll("#square"); 
+
+
+for (let i = 0; i < square.length; i++) {
+ 
+  if(square[i].className = 'bright'){
+    square[i].className = 'dark';
+  }
+  console.log(square[i].className);
+  if(square[i].className === 'dark' && square[i].className !== 'bright'){
+    let dark = 1;
     square[i].addEventListener("click", function() {
-         if (dark > 0) {   
+      square[i].style.removeProperty("filter");
+      square[i].style.setProperty("filter", `brightness(${dark})`);
+         if (dark > 0 && dark <= 1) {   
            dark = dark - 0.2;
            dark = (dark * 100) / 100; 
-           square[i].style.setProperty("filter", `brightness(${dark})`);
            } else if (dark <= 0) {
              dark = 1;
-            // square[i].style.setProperty("filter", `brightness(${dark})`);
-            }
-           
+          }
+        
       });
-    }
-  }
-    if (!test) { 
-    for (let i = 0; i < square.length; i++) {
-      square[i].outerHTML = square[i].outerHTML;// This will remove all event listeners
      }
-   }
+    }
+    return;
   };
 
 
